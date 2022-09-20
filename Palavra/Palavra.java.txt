@@ -1,0 +1,72 @@
+public class Palavra implements Comparable<Palavra>
+{
+    private String texto;
+
+    public Palavra (String texto) throws Exception
+    {
+        if (texto == null || (texto.length() == 0))
+            throw new Exception ("Palavra vazia");
+        this.texto = texto;
+    }
+
+    public int getQuantidade (char letra)
+    {
+        int counter = 0;
+        for (int i=0; i < getTamanho(); i++) {
+            if (this.texto.charAt(i) == letra) counter++;
+        }
+        return counter;
+    }
+
+    public int getPosicaoDaIezimaOcorrencia (int i, char letra) throws Exception
+    {
+        int qtd = getQuantidade(letra);
+        int counter = 0, position = 0;
+    
+        if (qtd == 0 || i + 1 > qtd) 
+            throw new Exception("Letra não encontrada.");
+    
+        for (int j = 0; j < getTamanho(); j++) {
+            if (this.texto.charAt(j) == letra) {
+                if (counter == i) {
+                    position = j;
+                    break;
+                } else {
+                    counter++;
+                }
+            }
+        }
+        return position;
+    }
+
+    public int getTamanho ()
+    {
+        return this.texto.length();
+    }
+
+    public String toString ()
+    {
+        return this.texto;
+    }
+
+    public boolean equals (Object obj)
+    {
+            if(this == obj) return true;
+            if(obj == null) return false;
+            if(this.getClass() != obj.getClass()) return false;
+            if(this.texto != ((Palavra) obj).texto) return false;
+            return true;
+    }
+
+/*
+    public int hashCode ()
+    {
+        // calcular e retornar o hashcode de this
+    }
+*/
+
+    public int compareTo (Palavra palavra)
+    {
+        return this.texto.compareTo(palavra.texto);
+    }
+}
