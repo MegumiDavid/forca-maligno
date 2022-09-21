@@ -12,7 +12,8 @@ public class Palavra implements Comparable<Palavra>
     public int getQuantidade (char letra)
     {
         int counter = 0;
-        for (int i=0; i < getTamanho(); i++) {
+        for (int i=0; i < getTamanho(); i++)
+        {
             if (this.texto.charAt(i) == letra) counter++;
         }
         return counter;
@@ -21,22 +22,20 @@ public class Palavra implements Comparable<Palavra>
     public int getPosicaoDaIezimaOcorrencia (int i, char letra) throws Exception
     {
         int qtd = getQuantidade(letra);
-        int counter = 0, position = 0;
-    
-        if (qtd == 0 || i + 1 > qtd) 
-            throw new Exception("Letra não encontrada.");
-    
-        for (int j = 0; j < getTamanho(); j++) {
+        int counter = 0, j;
+
+        if(i>this.texto.length()) throw new Exception("Palavra menor que ocorrencia requisitada.");
+        if (qtd == 0)  throw new Exception("Letra nao encontrada.");
+        if (i + 1 > qtd)  throw new Exception("Numero de ocorrencias menor que o requisitado.");
+
+        for (j = 0; j < this.texto.length(); j++)
+        {
             if (this.texto.charAt(j) == letra) {
-                if (counter == i) {
-                    position = j;
-                    break;
-                } else {
-                    counter++;
-                }
+                if (counter == i) break;
+                counter++;
             }
         }
-        return position;
+        return j;
     }
 
     public int getTamanho ()
@@ -44,11 +43,13 @@ public class Palavra implements Comparable<Palavra>
         return this.texto.length();
     }
 
+    @Override
     public String toString ()
     {
         return this.texto;
     }
 
+    @Override
     public boolean equals (Object obj)
     {
             if(this == obj) return true;
@@ -58,12 +59,18 @@ public class Palavra implements Comparable<Palavra>
             return true;
     }
 
-/*
+    @Override
     public int hashCode ()
     {
-        // calcular e retornar o hashcode de this
+        int ret = 672;
+
+        if (this.texto !=null)
+            ret = 7*ret + this.texto.hashCode();
+
+        if (ret<0) ret=-ret;
+
+        return ret;
     }
-*/
 
     public int compareTo (Palavra palavra)
     {

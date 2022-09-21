@@ -9,7 +9,8 @@ public class ControladorDeLetrasJaDigitadas implements Cloneable
 
     public boolean isJaDigitada (char letra)
     {
-        for (int i=0; i<this.letrasJaDigitadas.length(); i++) {
+        for (int i=0; i<this.letrasJaDigitadas.length(); i++)
+        {
             if (this.letrasJaDigitadas.charAt(i) == letra)
                 return true;
         }
@@ -24,10 +25,12 @@ public class ControladorDeLetrasJaDigitadas implements Cloneable
         this.letrasJaDigitadas = this.letrasJaDigitadas + letra;
     }
 
+    @Override
     public String toString ()
     {
         String str = "";
-        for (int i=0; i<this.letrasJaDigitadas.length(); i++) {
+        for (int i=0; i<this.letrasJaDigitadas.length(); i++)
+        {
             str = str + this.letrasJaDigitadas.charAt(i);
             if (i != (this.letrasJaDigitadas.length() - 1))
                 str = str +  ", ";
@@ -44,12 +47,19 @@ public class ControladorDeLetrasJaDigitadas implements Cloneable
         return true;
     }
 
-    /*
+    @Override
     public int hashCode ()
     {
-        // calcular e retornar o hashcode de this
+        int ret = 672;
+
+        if (this.letrasJaDigitadas!=null)
+            ret = 7*ret + this.letrasJaDigitadas.hashCode();
+
+        if (ret<0) ret=-ret;
+
+        return ret;
     }
-    */
+
 
     public ControladorDeLetrasJaDigitadas(
             ControladorDeLetrasJaDigitadas c)
@@ -60,11 +70,15 @@ public class ControladorDeLetrasJaDigitadas implements Cloneable
          this.letrasJaDigitadas = c.letrasJaDigitadas;
     }
 
-    public Object clone () {
+    public Object clone ()
+    {
         ControladorDeLetrasJaDigitadas ret = null;
-        try {
+        try
+        {
             ret = new ControladorDeLetrasJaDigitadas (this);
-        } catch (Exception erro){ }
+        }
+        catch (Exception erro){ }
+
         return ret;
     }
 }

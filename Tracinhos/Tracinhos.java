@@ -8,9 +8,9 @@ public class Tracinhos implements Cloneable
             throw new Exception ("quantidade invalidade");
 
         this.texto = new char[qtd];
-        for (int i = 0; i<qtd; i++) {
+        for (int i = 0; i<qtd; i++)
             this.texto[i] = '_';
-        }
+
     }
 
     public void revele (int posicao, char letra) throws Exception
@@ -23,57 +23,70 @@ public class Tracinhos implements Cloneable
 
     public boolean isAindaComTracinhos ()
     {
-        for (int i = 0; i<this.texto.length; i++) {
-
+        for (int i = 0; i<this.texto.length; i++)
+        {
             if (this.texto[i] == '_')
                 return true;
         }
         return false;
     }
 
+    @Override
     public String toString ()
     {
         String str = "";
-        for (int i = 0; i<this.texto.length; i++) {
+        for (int i = 0; i<this.texto.length; i++)
+        {
             str = str + this.texto[i];
             str = str + ' ';
         }
         return str;
     }
 
+    @Override
     public boolean equals (Object obj)
     {
         if(this == obj) return true;
         if(obj == null) return false;
         if(this.getClass() != obj.getClass()) return false;
-        if(this.texto != ((Tracinhos) obj).texto) return false;
+        for (int i = 0 ; i<this.texto.length; i++)
+            if(this.texto[i] != ((Tracinhos) obj).texto[i]) return false;
         return true;
     }
 
-    /*
+/*
     public int hashCode ()
     {
-        // calcular e retornar o hashcode de this
-    }
-    */
+        int ret = 222;
 
-    public Tracinhos (Tracinhos t) throws Exception // construtor de cópia
+        for (int i= 0; i<this.texto.length; i++)
+            ret = 7*ret + new Character this.texto[i].hashCode();
+
+        if (ret<0) ret=-ret;
+
+        return ret;
+    }
+*/
+
+    public Tracinhos (Tracinhos t) throws Exception // construtor de c�pia
     {
         if (t == null)
             throw new Exception ("modelo ausente");
 
         this.texto = new char[t.texto.length];
-        for (int i = 0; i<this.texto.length; i++) {
-            this.texto[i] = t.texto[i];
-        }
+        System.arraycopy(t.texto, 0, this.texto, 0, this.texto.length);
+
     }
 
     public Object clone ()
     {
         Tracinhos ret = null;
-        try {
+        try
+        {
             ret = new Tracinhos (this);
-        } catch (Exception erro){ }
+        }
+        catch (Exception erro)
+        { }
         return ret;
     }
 
